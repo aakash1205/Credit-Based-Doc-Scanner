@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Find Matching Documents</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Find Matching Documents</h1>
+        </header>
+        <section class="search-section">
+            <form id="matchForm" class="form-container">
+                <div class="input-group">
+                    <input type="text" id="matchDocId" placeholder="Enter Document ID" required>
+                    <label for="matchDocId">.</label>
+                </div>
+                <button type="submit">Find Matches</button>
+            </form>
+        </section>
+        <section id="matches-section">
+            <h2>Matching Documents</h2>
+            <div id="matchesContainer" class="matches-container" style="display: none;">
+                <!-- Matches will be displayed here -->
+            </div>
+        </section>
+        <footer>
+            <p><a href="index.html" class="link">Back to Home</a></p>
+        </footer>
+    </div>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

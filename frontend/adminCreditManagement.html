@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Credit Management</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+   
+    <div class="container">
+        <h1>Admin Credit Management</h1>
+        <a href="index.html" class="link">Return to Home</a>
+        <nav class="admin-nav">
+            <a href="adminDashboard.html" class="nav-link">Analytics Dashboard</a>
+            <a href="index.html" class="nav-link">Logout</a>
+        </nav>
+        <h2>Credit Requests</h2>
+        <div id="creditRequests"></div> <!-- This will display credit requests -->
+
+        <h2>Adjust User Credits</h2>
+        <form id="adjustCreditsForm">
+            <div class="input-group">
+                <label for="userId">User ID:</label>
+                <input type="text" id="userId" required>
+            </div>
+            <div class="input-group">
+                <label for="creditAmount">Credit Amount:</label>
+                <input type="number" id="creditAmount" required>
+            </div>
+            <button type="submit">Adjust Credits</button>
+        </form>
+        <p id="adjustMessage"></p>
+    </div>
+    <script src="js/scripts.js"></script> <!-- Link to your JavaScript file -->
+    <script>
+        // Check admin status first
+        async function checkAdminStatus() {
+            const userId = localStorage.getItem('userId');
+            const username = localStorage.getItem('username');
+
+            if (!userId || !username) {
+                window.location.href = 'adminLogin.html';
+                return false;
+            }
+
+            const userResponse = await fetch(`http://localhost:3000/auth/getUserId?username=${username}`);
+            const userData = await userResponse.json();
+
+            if (!userData.isAdmin) {
+                alert('You do not have permission to access this page.');
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Fetch credit requests from the server
+        async function loadCreditRequests() {
+            try {
+                if (!(await checkAdminStatus())) return;
+                
+                const response = await fetch('http://localhost:3000/credit-requests');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch credit requests');
+                }
+                
+                const requests = await response.json();
+                console.log('Fetched requests:', requests);
+
+                const creditRequestsContainer = document.getElementById('creditRequests');
+                if (!creditRequestsContainer) {
+                    console.error('Credit requests container not found');
+                    return;
+                }
+                
+                creditRequestsContainer.innerHTML = '';
+
+                // Filter only pending requests
+                const pendingRequests = requests.filter(request => request.status === 'pending');
+
+                if (pendingRequests.length === 0) {
+                    creditRequestsContainer.innerHTML = '<p class="no-requests">No pending credit requests found.</p>';
+                    return;
+                }
+
+                // Dynamically create buttons for each pending request
+                pendingRequests.forEach(request => {
+                    const requestElement = document.createElement('div');
+                    requestElement.className = 'credit-request-item';
+                    requestElement.innerHTML = `
+                        <div class="request-details">
+                            <p><strong>User ID:</strong> ${request.userId}</p>
+                            <p><strong>Requested Amount:</strong> ${request.amount} credits</p>
+                            <p><strong>Request Date:</strong> ${request.createdAt ? new Date(request.createdAt).toLocaleString() : 'N/A'}</p>
+                        </div>
+                        <div class="request-actions">
+                            <button onclick="manageRequest(${request.id}, 'approve')" class="approve-btn">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button onclick="manageRequest(${request.id}, 'deny')" class="deny-btn">
+                                <i class="fas fa-times"></i> Deny
+                            </button>
+                        </div>
+                    `;
+                    creditRequestsContainer.appendChild(requestElement);
+                });
+            } catch (error) {
+                console.error('Error loading credit requests:', error);
+                document.getElementById('creditRequests').innerHTML = 
+                    '<p class="error-message">Error loading credit requests. Please try again.</p>';
+            }
+        }
+
+        // Call the function to load credit requests
+        loadCreditRequests();
+
+        // Adjust User Credits Form
+        const adjustCreditsForm = document.getElementById('adjustCreditsForm');
+        if (adjustCreditsForm) {
+            adjustCreditsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userId = document.getElementById('userId').value;
+                const creditAmount = document.getElementById('creditAmount').value;
+
+                const adjustResponse = await fetch('http://localhost:3000/credits/adjust', { // Ensure this URL is correct
+                    method: 'PUT', // Use PUT method if that's what your backend expects
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, amount: creditAmount })
+                });
+
+                const data = await adjustResponse.json();
+                const adjustMessageElement = document.getElementById('adjustMessage');
+                if (adjustMessageElement) {
+                    adjustMessageElement.innerText = data.message;
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-tasks"></i> Scan Management</h1>
+            <a href="index.html" class="link"><i class="fas fa-home"></i> Return to Home</a>
+        </div>
+        
+        <!-- Add Navigation -->
+        <nav class="user-nav">
+            <a href="upload.html" class="nav-link"><i class="fas fa-upload"></i> Upload Documents</a>
+            <a href="scanManagement.html" class="nav-link active"><i class="fas fa-tasks"></i> Scan Management</a>
+            <a href="find-matches.html" class="nav-link"><i class="fas fa-search"></i> Find Matches</a>
+        </nav>
+        
+        <!-- User Info Section -->
+        <div id="userInfo" class="user-info-card">
+            <h2><i class="fas fa-user-circle"></i> User Information</h2>
+            <div class="user-info">
+                <p><strong><i class="fas fa-user"></i> UserName:</strong> <span id="username"></span></p>
+                <p><strong><i class="fas fa-credit-card"></i> Daily Credits Used:</strong> <span id="scanCount"></span></p>
+                <p><strong><i class="fas fa-chart-line"></i> Daily Credit Limit:</strong> <span id="scanLimit">3</span></p>
+            </div>
+        </div>
+
+        <!-- Document List Section -->
+        <div class="documents-section">
+            <h2><i class="fas fa-file-alt"></i> My Documents</h2>
+            <p class="section-description">Here are all your uploaded documents. Use these IDs to find matching documents.</p>
+            <div id="documentsList" class="document-cards">
+                <!-- Documents will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Move matches container outside documents-section -->
+        <div id="matchesContainer" class="matches-container" style="display: none;">
+            <!-- Matches will be displayed here -->
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <h2><i class="fas fa-download"></i> Download Scan History</h2>
+            <p class="export-description">Download a text file containing all your scanned documents and their details.</p>
+            <button id="exportButton" class="export-button">
+                <i class="fas fa-download"></i> Download Scan History
+            </button>
+        </div>
+
+        <!-- Update the scan history section -->
+        <div class="scan-history">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Scan History</h2>
+                <div class="export-buttons">
+                    <button id="exportCSV" class="button button-secondary">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button id="exportPDF" class="button button-primary">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="scanHistoryTable">
+                    <thead>
+                        <tr>
+                            <th>Document ID</th>
+                            <th>Upload Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scanHistoryBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        
+      
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

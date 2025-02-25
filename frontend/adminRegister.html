@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Register</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-user-shield"></i> Admin Registration</h1>
+            <a href="index.html" class="button button-secondary">
+                <i class="fas fa-home"></i> Return to Home
+            </a>
+        </div>
+
+        <div class="auth-container">
+            <form id="adminRegisterForm" class="form-container">
+                <div class="input-group">
+                    <label for="adminRegisterUsername">
+                        <i class="fas fa-user-shield"></i> Admin Username
+                    </label>
+                    <input type="text" id="adminRegisterUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="adminRegisterPassword">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="adminRegisterPassword" required>
+                </div>
+                <div class="input-group admin-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="isAdmin" checked disabled>
+                        <i class="fas fa-shield-alt"></i> Register as Administrator
+                    </label>
+                </div>
+                <div class="auth-buttons">
+                    <button type="submit" class="button button-primary">
+                        <i class="fas fa-user-plus"></i> Register as Admin
+                    </button>
+                    <a href="adminLogin.html" class="button button-secondary">
+                        <i class="fas fa-sign-in-alt"></i> Login Instead
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/scripts.js"></script>
+</body>
+</html> 

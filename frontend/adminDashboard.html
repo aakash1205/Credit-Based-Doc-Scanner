@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Analytics Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-chart-line"></i> Analytics Dashboard</h1>
+            <div class="header-buttons">
+                <a href="adminCreditManagement.html" class="button button-primary">
+                    <i class="fas fa-coins"></i> Credit Management
+                </a>
+                <a href="index.html" class="button button-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <h3><i class="fas fa-file-alt"></i> Total Scans Today</h3>
+                <p id="totalScansToday">Loading...</p>
+            </div>
+            <div class="summary-card">
+                <h3><i class="fas fa-credit-card"></i> Total Credits Used</h3>
+                <p id="totalCreditsUsed">Loading...</p>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <!-- Daily Scan Activity -->
+            <div class="stat-card">
+                <h2><i class="fas fa-chart-area"></i> Daily Scan Activity</h2>
+                <div id="dailyScansChart"></div>
+            </div>
+            
+            <!-- Top Users -->
+            <div class="stat-card">
+                <h2><i class="fas fa-users"></i> Top Users by Scans</h2>
+                <div id="topUsersChart"></div>
+            </div>
+            
+            <!-- Document Topics -->
+            <div class="stat-card">
+                <h2><i class="fas fa-tags"></i> Common Document Topics</h2>
+                <div id="topicsChart"></div>
+            </div>
+        </div>
+
+        <!-- Detailed Statistics Table -->
+        <div class="data-table-section">
+            <div class="section-header">
+                <h2><i class="fas fa-table"></i> Detailed User Statistics</h2>
+                <div class="table-controls">
+                    <input type="date" id="dateFilter" class="date-filter">
+                    <select id="sortFilter" class="sort-filter">
+                        <option value="scans">Sort by Scans</option>
+                        <option value="recent">Most Recent</option>
+                    </select>
+                    <div class="export-buttons">
+                        <button id="exportCSV" class="button button-secondary">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </button>
+                        <button id="exportPDF" class="button button-primary">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="statsTable">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Today's Scans</th>
+                            <th>Total Scans</th>
+                            <th>Credits Used</th>
+                            <th>Last Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 
