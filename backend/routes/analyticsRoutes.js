@@ -1,7 +1,12 @@
 const express = require('express');
-const { getUserActivity } = require('../controllers/analyticsController');
 const router = express.Router();
+const analyticsController = require('../controllers/analyticsController');
 
-router.get('/userActivity', getUserActivity);
+// Remove the old route
+// router.get('/user-activity', analyticsController.getUserActivity);
+
+// Add these new routes
+router.get('/dashboard', analyticsController.getDashboardStats);
+router.get('/user/:userId', analyticsController.getUserAnalytics);
 
 module.exports = router; 
