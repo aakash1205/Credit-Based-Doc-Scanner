@@ -1,4 +1,4 @@
-Download this zip file and extract it.
+Download this Repo or clone it.
 
 Open the folder in your text editor.
 
